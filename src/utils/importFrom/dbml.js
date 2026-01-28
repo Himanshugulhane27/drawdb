@@ -25,6 +25,8 @@ export function fromDBML(src) {
       parsedTable.indices = [];
 
       for (const column of table.fields) {
+        if (!column.name) continue;
+        
         const field = {};
 
         field.id = nanoid();
