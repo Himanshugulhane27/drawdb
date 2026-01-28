@@ -113,6 +113,7 @@ export function fromDBML(src) {
     for (const schemaEnum of schema.enums) {
       const parsedEnum = {};
 
+      parsedEnum.id = nanoid();
       parsedEnum.name = schemaEnum.name;
       parsedEnum.values = schemaEnum.values.map((x) => x.name);
 
