@@ -46,7 +46,7 @@ export function fromDBML(src) {
         parsedIndex.id = nanoid();
         parsedIndex.fields = idx.columns.map((x) => x.value);
         parsedIndex.name =
-          idx.name ?? `${parsedTable.name}_index_${parsedIndex.id}`;
+          idx.name ?? `${parsedTable.name}_idx_${parsedIndex.id}`;
         parsedIndex.unique = !!idx.unique;
 
         parsedTable.indices.push(parsedIndex);
