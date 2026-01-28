@@ -14,6 +14,8 @@ export function fromDBML(src) {
 
   for (const schema of ast.schemas) {
     for (const table of schema.tables) {
+      if (!table.name) continue;
+      
       let parsedTable = {};
       parsedTable.id = nanoid();
       parsedTable.name = table.name;
