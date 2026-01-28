@@ -60,6 +60,8 @@ export function fromDBML(src) {
     }
 
     for (const ref of schema.refs) {
+      if (!ref.endpoints || ref.endpoints.length < 2) continue;
+      
       const startTableName = ref.endpoints[0].tableName;
       const endTableName = ref.endpoints[1].tableName;
       const startFieldName = ref.endpoints[0].fieldNames[0];
