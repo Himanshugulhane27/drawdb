@@ -13,9 +13,9 @@ const parser = new Parser();
 export function fromDBML(src) {
   const ast = parser.parse(src, "dbmlv2");
 
-  const tables = [];
-  const enums = [];
-  const relationships = [];
+  const parsedTables = [];
+  const parsedEnums = [];
+  const parsedRelationships = [];
 
   for (const schema of ast.schemas) {
     for (const table of schema.tables) {
@@ -61,7 +61,7 @@ export function fromDBML(src) {
         parsedTable.indices.push(parsedIndex);
       }
 
-      tables.push(parsedTable);
+      parsedTables.push(parsedTable);
     }
 
     for (const ref of schema.refs) {
@@ -72,10 +72,10 @@ export function fromDBML(src) {
       const startFieldName = ref.endpoints[0].fieldNames[0];
       const endFieldName = ref.endpoints[1].fieldNames[0];
 
-      const startTable = tables.find((t) => t.name === startTableName);
+      const startTable = parsedTables.find((t) => t.name === startTableName);
       if (!startTable) continue;
 
-      const endTable = tables.find((t) => t.name === endTableName);
+      const endTable = parsedTables.find((t) => t.name === endTableName);
       if (!endTable) continue;
 
       const endField = endTable.fields.find((f) => f.name === endFieldName);
@@ -117,7 +117,7 @@ export function fromDBML(src) {
         relationship.cardinality = Cardinality.ONE_TO_ONE;
       }
 
-      relationships.push(relationship);
+      parsedRelationships.push(relationship);
     }
 
     for (const schemaEnum of schema.enums) {
@@ -127,11 +127,11 @@ export function fromDBML(src) {
       parsedEnum.name = schemaEnum.name;
       parsedEnum.values = schemaEnum.values.map((x) => x.name);
 
-      enums.push(parsedEnum);
+      parsedEnums.push(parsedEnum);
     }
   }
 
-  const diagram = { tables, enums, relationships };
+  const diagram = { tables: parsedTables, enums: parsedEnums, relationships: parsedRelationships };
 
   arrangeTables(diagram);
 
