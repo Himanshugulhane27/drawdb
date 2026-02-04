@@ -4,6 +4,7 @@ import { Cardinality, Constraint } from "../../data/constants";
 import { nanoid } from "nanoid";
 
 const parser = new Parser();
+const DEFAULT_TABLE_COLOR = "#175e7a";
 
 /**
  * Converts DBML source code to diagram format
@@ -25,7 +26,7 @@ export function fromDBML(src) {
       parsedTable.id = nanoid();
       parsedTable.name = table.name;
       parsedTable.comment = table.note ?? "";
-      parsedTable.color = table.headerColor ?? "#175e7a";
+      parsedTable.color = table.headerColor ?? DEFAULT_TABLE_COLOR;
       parsedTable.fields = [];
       parsedTable.indices = [];
 
