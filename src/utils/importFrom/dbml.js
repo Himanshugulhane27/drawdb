@@ -12,6 +12,10 @@ const DEFAULT_TABLE_COLOR = "#175e7a";
  * @returns {Object} Parsed diagram with tables, enums, and relationships
  */
 export function fromDBML(src) {
+  if (!src || typeof src !== 'string') {
+    throw new Error('Invalid DBML source: must be a non-empty string');
+  }
+  
   const ast = parser.parse(src, "dbmlv2");
 
   const parsedTables = [];
