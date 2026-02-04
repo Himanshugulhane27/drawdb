@@ -5,6 +5,11 @@ import { nanoid } from "nanoid";
 
 const parser = new Parser();
 
+/**
+ * Converts DBML source code to diagram format
+ * @param {string} src - DBML source code
+ * @returns {Object} Parsed diagram with tables, enums, and relationships
+ */
 export function fromDBML(src) {
   const ast = parser.parse(src, "dbmlv2");
 
